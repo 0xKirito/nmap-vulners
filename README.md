@@ -3,6 +3,16 @@
 [![Current Release](https://img.shields.io/github/release/vulnersCom/nmap-vulners.svg "Current Release")](https://github.com/vulnersCom/nmap-vulners/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/vulnersCom/nmap-vulners/total.svg "Downloads")](https://github.com/vulnersCom/nmap-vulners/releases) [![PayPal](https://img.shields.io/badge/donate-PayPal-green.svg)](https://paypal.me/videns)
 
+---
+
+## Note About Changes
+
+The `vulners.nse` script worked but `mincvss` script argument was not working as expected and so the script would list all the CVEs it found regardless of their CVSS scores. I found a fix to this behaviour [on this issue here](https://github.com/vulnersCom/nmap-vulners/issues/43) suggested by [@mavzerburak0](https://github.com/mavzerburak0).
+
+Another change I made was to set the default CVSS score to 7.0 instead of 0.0 (when no `mincvss` script argument is specified) for my own convenience as I mostly only need CVEs with CVSS scores of 7.0 and above listed in my nmap results. Providing `mincvss` script argument with the score of your preference (example: `--script-args mincvss=4.0`) will override this default as intended.
+
+---
+
 ## Description
 
 NSE script uses info about known services to provide data on vulnerabilities. Note that it is already included into the standard nmap NSE library.
