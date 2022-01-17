@@ -64,7 +64,7 @@ local stdnse = require "stdnse"
 
 local api_version="1.7"
 local mincvss=stdnse.get_script_args("vulners.mincvss")
-mincvss = tonumber(mincvss) or 0.0
+mincvss = tonumber(mincvss) or 7.0
 
 portrule = function(host, port)
   local vers=port.version
@@ -100,7 +100,7 @@ function make_links(vulns)
     }
 
     -- NOTE[gmedian]: exploits seem to have cvss == 0, so print them anyway
-    if v.is_exploit or (v.cvss and mincvss <= v.cvss) then
+    if v.cvss and mincvss <= v.cvss then
       setmetatable(v, cve_meta)
       output[#output+1] = v
     end
@@ -301,4 +301,3 @@ action = function(host, port)
   end
   return tab
 end
-
